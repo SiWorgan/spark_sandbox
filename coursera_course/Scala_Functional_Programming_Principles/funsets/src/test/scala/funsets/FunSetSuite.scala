@@ -110,5 +110,51 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("intersection contains the intersection of two sets") {
+    new TestSets {
+      val si1 = intersect(s1, s1)
+      val si2 = intersect(s1, s2)
+      assert(contains(si1, 1), "Intersect 1")
+      assert(!contains(si2, 1), "Intersect 2")
+    }
+  }
+
+  test("difference gives all elements in s not in t") {
+    new TestSets {
+      val sd1 = diff(s1,s2)
+      assert(contains(sd1, 1))
+      assert(!contains(sd1, 2))
+    }
+  }
+
+  test("forall within p") {
+    new TestSets {
+      def p1: Int => Boolean = x => x < 0
+      def p2: Int => Boolean = x => x > 0
+      assert(!forall(s1,p1))
+      assert(forall(s1,p2))
+    }
+  }
+
+  test("exists within p") {
+    new TestSets {
+      def p1: Int => Boolean = x => x < 0
+      def p2: Int => Boolean = x => x > 0
+      assert(!exists(s1,p1))
+      assert(exists(s1,p2))
+    }
+  }
+
+  test("contains after function") {
+    new TestSets {
+      def f: Int => Int = x => x*10
+      val s10 = map(s1, f)
+      val s20 = map(s2, f)
+      assert(contains(s10, 10))
+      assert(!contains(s10, 1))
+      assert(contains(s20, 20))
+    }
+
+  }
 
 }
