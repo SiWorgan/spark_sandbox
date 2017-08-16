@@ -1,4 +1,7 @@
 *.zip
 *.txt
+*.csv
+*.xlsx
+*.dat
 target/
 .idea/
